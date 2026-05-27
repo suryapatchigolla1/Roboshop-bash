@@ -51,8 +51,9 @@ echo -n "Extract the $COMPONENT component code: "
 unzip  -o /tmp/$COMPONENT.zip &>> $LOG
 stat $?
 
-echo -n "Configuring the $COMPONENT proxy file: "
-cp nginx.conf /etc/nginx/nginx.conf 
+echo -n "Configuring $COMPONENT proxy file"
+cp nginx.conf /etc/nginx/nginx.conf
+
 stat $?
 
 echo -n "Start $COMPONENT service: "
