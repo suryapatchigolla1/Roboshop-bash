@@ -22,36 +22,36 @@ stat() {
     fi 
 }
 
-echo "Disable default nginx version"
+echo -n "Disable default nginx version: "
 dnf module disable nginx -y &>> $LOG
 stat $?
 
-echo "Enable nginx:1.24 version"
+echo -n "Enable nginx:1.24 version: "
 dnf module enable nginx:1.24 -y &>> $LOG
 stat $?
 
 
-echo "Install nginx"
+echo -n "Install nginx: "
 dnf install nginx -y &>> $LOG
 stat $?
 
 
-echo "Download the $COMPONENT component code"
+echo -n "Download the $COMPONENT component code: "
 curl -L -o /tmp/${COMPONENT}.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip
 stat $?
 
 
-echo "Perform cleanup and unzip the $COMPONENT code"
+echo -n "Perform cleanup and unzip the $COMPONENT code: "
 cd /usr/share/nginx/html 
 rm -rf * &>> "$LOG"
 stat $?
 
 
-echo "extract the $COMPONENT component code"
+echo -n "Extract the $COMPONENT component code: "
 unzip  -o /tmp/$COMPONENT.zip &>> "$LOG"
 stat $?
 
-echo "Start $COMPONENT service"
+echo -n "Start $COMPONENT service: "
 systemctl enable nginx &>> "$LOG"
 systemctl restart nginx &>> "$LOG"
 stat $?
