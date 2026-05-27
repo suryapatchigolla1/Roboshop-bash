@@ -5,7 +5,7 @@ echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
 # It should run as root user or
 ID=$(id -u)
 COMPONENT="frontend"
-LOG= "/tmp/${COMPONENT}.log"
+LOG="/tmp/${COMPONENT}.log"
 
 if [ $ID -ne 0 ]; then
   echo "This script must be run as root"
