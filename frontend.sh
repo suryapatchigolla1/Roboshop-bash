@@ -43,21 +43,21 @@ stat $?
 
 echo -n "Perform cleanup and unzip the $COMPONENT code: "
 cd /usr/share/nginx/html 
-rm -rf * &>> "$LOG"
+rm -rf * &>> $LOG
 stat $?
 
 
 echo -n "Extract the $COMPONENT component code: "
-unzip  -o /tmp/$COMPONENT.zip &>> "$LOG"
+unzip  -o /tmp/$COMPONENT.zip &>> $LOG
 stat $?
 
-echo -n "Configuring the $COMPONENT component service: "
-cp nginx.conf /etc/nginx/nginx.conf &>> "$LOG"
+echo -n "Configuring the $COMPONENT proxy file: "
+cp nginx.conf /etc/nginx/nginx.conf 
 stat $?
 
 echo -n "Start $COMPONENT service: "
-systemctl enable nginx &>> "$LOG"
-systemctl restart nginx &>> "$LOG"
+systemctl enable nginx &>> $LOG
+systemctl restart nginx &>> $LOG
 stat $?
 
-echo "Configuration Management for $COMPONENT is completed"
+echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
