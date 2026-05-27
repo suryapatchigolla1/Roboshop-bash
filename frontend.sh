@@ -62,3 +62,5 @@ systemctl restart nginx &>> $LOG
 stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+
+###
