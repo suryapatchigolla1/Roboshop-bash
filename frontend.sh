@@ -33,7 +33,7 @@ unzip /tmp/$COMPONENT.zip
 
 
 echo "Start $COMPONENT service"
-systemctl enable $COMPONENT
-systemctl restart $COMPONENT
+systemctl enable nginx
+systemctl restart nginx
 
 echo "Configuration Management for $COMPONENT is completed"
