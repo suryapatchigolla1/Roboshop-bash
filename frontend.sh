@@ -53,7 +53,7 @@ stat $?
 
 echo -n "Configuring $COMPONENT proxy file"
 cp nginx.conf /etc/nginx/nginx.conf
-
+sed -i -e "s/env/${ENVIRONMENT}/g" /etc/nginx/nginx.conf
 stat $?
 
 echo -n "Start $COMPONENT service: "
