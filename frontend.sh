@@ -63,4 +63,4 @@ stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
 
-###
+### your domain is robo60.online
