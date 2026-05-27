@@ -3,6 +3,7 @@
 
 
 
+
 ID=$(id -u)
 COMPONENT="mongodb"
 LOG="/tmp/${COMPONENT}.log"
@@ -29,6 +30,10 @@ stat $?
 
 echo -n "Install $COMPONENT: "
 dnf install mongodb-org -y &>> $LOG
+stat $?
+
+echo -n "Updating the $COMPONENT configuration file: "
+sed -ie 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 stat $?
 
 echo -n "Start $COMPONENT service: "
