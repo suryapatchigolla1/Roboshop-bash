@@ -13,74 +13,47 @@ if [ $ID -ne 0 ]; then
     exit 1
 fi
 
+stat() {
+    if [ $1 -eq 0 ]; then 
+        echo -e "\e[32m Success \e[0m"
+    else
+        echo -e "\e[33m Failure \e[0m "
+        exit 2
+    fi 
+}
+
 echo "Disable default nginx version"
 dnf module disable nginx -y &>> $LOG
-if [ $? -eq 0 ]; then
-    echo "Pass"
-else    
-    echo "Fail"    
-    exit 2
-fi
+stat $?
 
 echo "Enable nginx:1.24 version"
 dnf module enable nginx:1.24 -y &>> $LOG
-if [ $? -eq 0 ]; then
-    echo "Pass"
-else    
-    echo "Fail"    
-    exit 2
-fi
+stat $?
 
 
 echo "Install nginx"
 dnf install nginx -y &>> $LOG
-if [ $? -eq 0 ]; then
-    echo "Pass"
-else    
-    echo "Fail"    
-    exit 2
-fi
+stat $?
 
 
 echo "Download the $COMPONENT component code"
 curl -L -o /tmp/${COMPONENT}.zip https://stan-robotshop.s3.amazonaws.com/$COMPONENT-v3.zip
-if [ $? -eq 0 ]; then
-    echo "Pass"
-else    
-    echo "Fail"    
-    exit 2
-fi
+stat $?
 
 
 echo "Perform cleanup and unzip the $COMPONENT code"
 cd /usr/share/nginx/html 
 rm -rf * &>> "$LOG"
-if [ $? -eq 0 ]; then
-    echo "Pass"
-else    
-    echo "Fail"    
-    exit 2
-fi
+stat $?
 
 
 echo "extract the $COMPONENT component code"
-unzip /tmp/$COMPONENT.zip &>> "$LOG"
-if [ $? -eq 0 ]; then
-    echo "Pass"
-else    
-    echo "Fail"    
-    exit 2
-fi
-
+unzip  -o /tmp/$COMPONENT.zip &>> "$LOG"
+stat $?
 
 echo "Start $COMPONENT service"
 systemctl enable nginx &>> "$LOG"
 systemctl restart nginx &>> "$LOG"
-if [ $? -eq 0 ]; then
-    echo "Pass"
-else    
-    echo "Fail"    
-    exit 2
-fi
+stat $?
 
 echo "Configuration Management for $COMPONENT is completed"
