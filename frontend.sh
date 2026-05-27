@@ -30,3 +30,10 @@ rm -rf *
 
 echo "extract the frontend code"
 unzip /tmp/frontend.zip
+
+
+echo "Start nginx service"
+systemctl enable nginx
+systemctl restart nginx
+
+echo "Configuration Management for frontend is completed"
