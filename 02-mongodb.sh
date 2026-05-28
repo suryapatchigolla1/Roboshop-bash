@@ -41,3 +41,4 @@ systemctl enable mongod &>> $LOG
 systemctl start mongod &>> $LOG
 stat $? 
 
+##
