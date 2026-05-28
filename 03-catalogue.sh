@@ -64,7 +64,10 @@ echo -n "Generation $COMPONENT Artifact: "
 cd /app && npm install &>> $LOG
 stat $?
 
-echo "Installation mongodb schema: "
+echo -n "Configuring Mongo shell repo: "
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+
+echo "Installation mongodb shell: "
 dnf install mongodb-mongosh -y &>> $LOG
 stat $?
 
@@ -73,7 +76,7 @@ mongosh --host mongodb.robo60.online </app/db/master-data.js &>> $LOG
 stat $?
 
 echo -n "Starting $COMPONENT service: "
-systemctl daemon-reload
+systemctl daemon-reload 
 systemctl enable $COMPONENT &>> $LOG
 systemctl start $COMPONENT &>> $LOG
 stat $?
