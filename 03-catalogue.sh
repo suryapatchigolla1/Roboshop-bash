@@ -41,7 +41,7 @@ echo -n "creating user add roboshop: "
 id $APPUSER &>/dev/null || useradd $APPUSER
 stat $?
 
-echo -n "perdorming cleanup: "
+echo -n "performing cleanup: "
 rm -rf /app || true &>> $LOG
 stat $?
 
