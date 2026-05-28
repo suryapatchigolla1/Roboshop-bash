@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
 
 ID=$(id -u)
@@ -52,7 +54,7 @@ curl -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}
 stat $?
 
 echo -n "Copying $COMPONENT systemd file: "
-cp ${COMPONENT}.service /etc/systemd/system/${COMPONENT}.service
+cp "$SCRIPT_DIR/${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.service
 stat $?
 
 echo -n "Extracting the $COMPONENT code: "
@@ -65,7 +67,7 @@ cd /app && npm install &>> $LOG
 stat $?
 
 echo -n "Configuring Mongo shell repo: "
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp "$SCRIPT_DIR/mongo.repo" /etc/yum.repos.d/mongo.repo
 
 echo "Installation mongodb shell: "
 dnf install mongodb-mongosh -y &>> $LOG
