@@ -36,7 +36,7 @@ dnf install $COMPONENT -y &>> $LOG
 stat $?
 
 echo -n "Updating the $COMPONENT configuration file: "
-sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis.conf
+sed -ie 's/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf
 stat $?
 
 # echo -n "Updating the $COMPONENT Protected mode: "
