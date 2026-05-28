@@ -36,7 +36,7 @@ dnf install nodejs -y &>> $LOG
 stat $?
 
 echo -n "creating user add roboshop: "
-useradd $APPUSER &>> $LOG
+id $APPUSER &>/dev/null || useradd $APPUSER
 stat $?
 
 echo -n "perdorming cleanup: "
