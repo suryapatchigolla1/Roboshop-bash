@@ -57,9 +57,10 @@ stat $?
 
 echo -n "Extracting the $COMPONENT code: "
 unzip -o /tmp/${COMPONENT}.zip -d /app &>> $LOG
-stat $
+stat $?
 
 echo -n "Generation $COMPONENT Artifact: "
+
 cd /app && npm install &>> $LOG
 stat $?
 
