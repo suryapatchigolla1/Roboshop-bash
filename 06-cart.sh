@@ -54,7 +54,7 @@ curl -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}
 stat $?
 
 echo -n "Copying $COMPONENT systemd file: "
-cp ${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.service
+cp ${COMPONENT}.service /etc/systemd/system/${COMPONENT}.service
 stat $?
 
 echo -n "Extracting the $COMPONENT code: "
@@ -66,7 +66,7 @@ cd /app && npm install &>> $LOG
 stat $?
 
 
-echo -n "Starting $COMPONENT service: "
+echo -n "Starting $COMPONENT service: "cp ${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.servicecp ${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.service
 systemctl enable $COMPONENT &>> $LOG
 systemctl start $COMPONENT &>> $LOG
 stat $?
