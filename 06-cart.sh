@@ -66,7 +66,7 @@ cd /app && npm install &>> $LOG
 stat $?
 
 
-echo -n "Starting $COMPONENT service: "cp ${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.servicecp ${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.service
+echo -n "Starting $COMPONENT service: "
 systemctl enable $COMPONENT &>> $LOG
 systemctl start $COMPONENT &>> $LOG
 stat $?
