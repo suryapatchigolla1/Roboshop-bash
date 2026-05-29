@@ -54,7 +54,7 @@ curl -o /tmp/$COMPONENT.zip https://stan-robotshop.s3.amazonaws.com/${COMPONENT}
 stat $?
 
 echo -n "Copying $COMPONENT systemd file: "
-cp "$SCRIPT_DIR/${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.service
+cp ${COMPONENT}.service" /etc/systemd/system/${COMPONENT}.service
 stat $?
 
 echo -n "Extracting the $COMPONENT code: "
