@@ -90,8 +90,6 @@ nodejs() {
 
     create_user #source ./common.sh
 
-    download_app
-
     install_mongo_shell
 
     download_and_extract
