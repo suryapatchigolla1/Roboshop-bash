@@ -1,42 +1,24 @@
 #!/bin/bash
 
-
 COMPONENT="mysql"
 source ./common.sh
 
+
+
 echo -n "Install $COMPONENT server: "
-dnf install $COMPONENT -y &>> $LOG
+dnf install mysql-server -y &>> $LOG
 stat $?
 
-SERVICE_NAME="mysqld"
-if ! systemctl list-unit-files | grep -q "^${SERVICE_NAME}.service"; then
-    if systemctl list-unit-files | grep -q '^mysql.service'; then
-        SERVICE_NAME="mysql"
-    elif systemctl list-unit-files | grep -q '^mariadb.service'; then
-        SERVICE_NAME="mariadb"
-    fi
-fi
-
-echo -n "Enabling $COMPONENT service: "
-systemctl enable $SERVICE_NAME &>> $LOG
+echo -n "Enabling $COMPONENT server: "
+systemctl enable mysqld &>> $LOG
 stat $?
 
-echo -n "Starting $COMPONENT service: "
-systemctl start $SERVICE_NAME &>> $LOG
+echo -n "Starting $COMPONENT server: "
+systemctl start mysqld &>> $LOG
+stat $?
+
+echo -n "Configuring the Root password: "
+mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG
 stat $? 
 
-echo -n "Configuring the root password: "
-mysql_secure_installation --set-root-password RoboShop@1 &>> $LOG
-stat $?
-
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
-
-# echo -n "Updating the $COMPONENT configuration file: "
-# sed -ie 's/127.0.0.1/0.0.0.0/' /etc/mysql/mysql.conf &>> $LOG
-# stat $?
-
-# echo -n "Updating the $COMPONENT Protected mode: "
-# sed -ie 's/protected-mode yes/protected-mode no/' /etc/mysql/mysql.conf &>> $LOG
-# stat $?
-
-
