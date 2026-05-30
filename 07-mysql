@@ -1,11 +1,10 @@
 #!/bin/bash
 
+
 COMPONENT="mysql"
-LOG="/tmp/${COMPONENT}.log"
 source ./common.sh
 
-
-echo -n "Install $COMPONENT: "
+echo -n "Install $COMPONENT server: "
 dnf install $COMPONENT -y &>> $LOG
 stat $?
 
@@ -13,7 +12,7 @@ echo -n "Enabling $COMPONENT service: "
 systemctl enable mysqld &>> $LOG
 stat $?
 
-echo -n "Start $COMPONENT service: "
+echo -n "Staring $COMPONENT service: "
 systemctl start mysqld &>> $LOG
 stat $? 
 
