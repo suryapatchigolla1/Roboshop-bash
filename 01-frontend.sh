@@ -26,7 +26,7 @@ echo -n "Disable default nginx version: "
 dnf module disable nginx -y &>> $LOG
 stat $?
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cp "$SCRIPT_DIR/nginx.conf" /etc/nginx/nginx.confcp "$SCRIPT_DIR/nginx.conf" /etc/nginx/nginx.conf
+cp "$SCRIPT_DIR/nginx.conf" /etc/nginx/nginx.conf
 echo -n "Enable nginx:1.24 version: "
 dnf module enable nginx:1.24 -y &>> $LOG
 stat $?
