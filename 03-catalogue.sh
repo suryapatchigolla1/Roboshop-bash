@@ -48,7 +48,8 @@ cd /app && npm install &>> $LOG
 stat $?
 
 echo -n "Configuring Mongo shell repo: "
-cp "$SCRIPT_DIR/mongo.repo" /etc/yum.repos.d/mongo.repo
+cp "$SCRIPT_DIR/mongo.repo" /etc/yum.repos.d/mongo.repo &>> $LOG
+stat $?
 
 echo "Installation mongodb shell: "
 dnf install mongodb-mongosh -y &>> $LOG
