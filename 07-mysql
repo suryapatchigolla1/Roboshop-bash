@@ -1,0 +1,34 @@
+#!/bin/bash
+
+COMPONENT="mysql"
+source ./common.sh
+LOG="/tmp/${COMPONENT}.log"
+
+
+echo -n "Install $COMPONENT: "
+dnf install $COMPONENT -y &>> $LOG
+stat $?
+
+echo -n "Enabling $COMPONENT service: "
+systemctl enable $COMPONENT &>> $LOG
+stat $?
+
+echo -n "Start $COMPONENT service: "
+systemctl start $COMPONENT &>> $LOG
+stat $? 
+
+echo -n "Configuring the root password: "
+mysql_secure_installation --set-root-password RoboShop@1 &>> $LOG
+stat $?
+
+echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+
+# echo -n "Updating the $COMPONENT configuration file: "
+# sed -ie 's/127.0.0.1/0.0.0.0/' /etc/mysql/mysql.conf &>> $LOG
+# stat $?
+
+# echo -n "Updating the $COMPONENT Protected mode: "
+# sed -ie 's/protected-mode yes/protected-mode no/' /etc/mysql/mysql.conf &>> $LOG
+# stat $?
+
+
