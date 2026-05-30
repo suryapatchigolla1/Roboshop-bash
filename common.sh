@@ -94,8 +94,11 @@ nodejs() {
 
     download_and_extract
 
+    config_svc
+
     echo -n "Generation $COMPONENT Artifact: "
-    npm install --prefix ./app &>> $LOG
+    cd /app 
+    npm install &>> $LOG
     stat $?
    
     if [ $COMPONENT == "catalogue" ]; then    
@@ -103,8 +106,6 @@ nodejs() {
         mongosh --host mongodb.robo60.online </app/db/master-data.js &>> $LOG
         stat $?
     fi  
-
-    config_svc
 
     echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
 
