@@ -8,12 +8,21 @@ echo -n "Install $COMPONENT server: "
 dnf install $COMPONENT -y &>> $LOG
 stat $?
 
+SERVICE_NAME="mysqld"
+if ! systemctl list-unit-files | grep -q "^${SERVICE_NAME}.service"; then
+    if systemctl list-unit-files | grep -q '^mysql.service'; then
+        SERVICE_NAME="mysql"
+    elif systemctl list-unit-files | grep -q '^mariadb.service'; then
+        SERVICE_NAME="mariadb"
+    fi
+fi
+
 echo -n "Enabling $COMPONENT service: "
-systemctl enable mysqld &>> $LOG
+systemctl enable $SERVICE_NAME &>> $LOG
 stat $?
 
-echo -n "Staring $COMPONENT service: "
-systemctl start mysqld &>> $LOG
+echo -n "Starting $COMPONENT service: "
+systemctl start $SERVICE_NAME &>> $LOG
 stat $? 
 
 echo -n "Configuring the root password: "
