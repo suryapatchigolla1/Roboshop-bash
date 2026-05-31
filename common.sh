@@ -153,11 +153,29 @@ maven() {
         stat $?
     fi  
 
+    echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"    
+}
+
+python() {
+    echo -n "Installing Python: "
+    dnf install python3 gcc python3-devel -y &>> $LOG
+    stat $?
+
+    create_user #source ./common.sh
+
+    download_and_extract
+
+    echo -n "Generation $COMPONENT Artifact: "
+    cd /app 
+    pip3 install -r requirements.txt &>> $LOG
+    cd -
+    stat $?
+
+    config_svc
 
     echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
     
 }
-
 
 
 
