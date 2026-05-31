@@ -127,7 +127,7 @@ maven() {
     echo -n "Generation $COMPONENT Artifact: "
     cd /app 
     mvn clean package &>> $LOG
-    mvn target/$COMPONENT-1.0.jar ${COMPONENT}.jar &>> $LOG
+    mv target/$COMPONENT-1.0.jar ${COMPONENT}.jar &>> $LOG
     stat $?
 
     install_mysql
