@@ -134,13 +134,13 @@ maven() {
 
     if [ $COMPONENT == "shipping" ]; then    
         echo -n "Loading schema: "
-        mysql -h shipping.robo60.online -uroot -pRoboShop@1 < /app/db/schema.sql &>> $LOG
+        mysql -h shipping.robo60.online -uroot -p{$1} < /app/db/schema.sql &>> $LOG
         stat $?
         echo -n "Injection the appUser: "
-        mysql -h shipping.robo60.online -uroot -pRoboShop@1 < /app/db/app-user.sql &>> $LOG
+        mysql -h shipping.robo60.online -uroot -p{$1} < /app/db/app-user.sql &>> $LOG
         stat $?
         echo -n "Loading the appUser data: "
-        mysql -h shipping.robo60.online -uroot -pRoboShop@1 < /app/db//master-data.sql &>> $LOG
+        mysql -h shipping.robo60.online -uroot -p{$1} < /app/db//master-data.sql &>> $LOG
         stat $?
     fi  
 
