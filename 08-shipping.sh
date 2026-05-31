@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 COMPONENT="shipping"
-source ./common.sh
+
+echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
+source "$SCRIPT_DIR/common.sh"
 maven
 
