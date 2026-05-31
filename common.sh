@@ -1,6 +1,12 @@
 #!/bin/bash
 
-echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
+if [ -z "$SCRIPT_DIR" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fi
+
+if [ -n "$COMPONENT" ]; then
+    echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
+fi
 
 ID=$(id -u)
 APPUSER="roboshop"
@@ -171,4 +177,4 @@ maven() {
 
 
 
-####
+#################
