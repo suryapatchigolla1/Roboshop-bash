@@ -132,6 +132,8 @@ maven() {
 
     install_mysql
 
+    config_svc
+
     if [ $COMPONENT == "shipping" ]; then    
         echo -n "Loading schema: "
         mysql -h mysql.robo60.online -uroot -pRoboShop@1 < /app/db/schema.sql &>> $LOG
@@ -144,7 +146,6 @@ maven() {
         stat $?
     fi  
 
-    config_svc
 
     echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
     
