@@ -128,6 +128,7 @@ maven() {
     cd /app 
     mvn clean package &>> $LOG
     mv target/$COMPONENT-1.0.jar ${COMPONENT}.jar &>> $LOG
+    cd -
     stat $?
 
     install_mysql
