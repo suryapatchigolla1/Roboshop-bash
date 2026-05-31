@@ -6,6 +6,7 @@ source ./common.sh
 
 echo -n "Configuring RabbitMQ repo: "
 cp "$SCRIPT_DIR/$COMPONENT.repo" /etc/yum.repos.d/$COMPONENT.repo &>> $LOG    
+stat $?
 
 echo -n "Install $COMPONENT server: "
 dnf install rabbitmq-server -y &>> $LOG
