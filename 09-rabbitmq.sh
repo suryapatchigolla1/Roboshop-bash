@@ -23,7 +23,7 @@ rabbitmqctl list_users | grep -w ${APPUSER} &>> $LOG
 if [ $? -ne 0 ]; then
 	rabbitmqctl add_user ${APPUSER} roboshop123 &>> $LOG
 else
-	echo -n "user ${APPUSER} already exists: " &>> $LOG
+	echo -n "user ${APPUSER} already exists so skipping: " &>> $LOG
 fi
 stat $?
 
