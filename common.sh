@@ -18,8 +18,8 @@ stat() {
     else
         echo -e "\e[33m Failure \e[0m "
         exit 2
-    fi 
-}
+    fi
+} 
 
 
 create_user() {
@@ -33,7 +33,6 @@ create_user() {
     fi
     stat $?
 }
-
 
 download_and_extract() {
     echo -n "performing cleanup: "
@@ -67,11 +66,17 @@ config_svc() {
 
 install_mongo_shell() {
     echo -n "Configuring Mongo shell repo: "
-    cp "$SCRIPT_DIR/mongo.repo" /etc/yum.repos.d/mongo.repo &>> $LOG
-    stat $?
+    cp "$SCRIPT_DIR/mongo.repo" /etc/yum.repos.d/mongo.repo &>> $LOG    
 
     echo "Installation mongodb shell: "
     dnf install mongodb-mongosh -y &>> $LOG
+    stat $?
+}
+
+
+install_mysql() {
+    echo -n "Install mysql server: "
+    dnf install mysql -y &>> $LOG
     stat $?
 }
 
@@ -90,8 +95,6 @@ nodejs() {
 
     create_user #source ./common.sh
 
-    install_mongo_shell
-
     download_and_extract
 
     config_svc
@@ -108,17 +111,53 @@ nodejs() {
     fi  
 
     echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+}
 
+
+
+maven() {
+    echo -n "Installing maven: "
+    dnf install maven -y &>> $LOG
+    stat $?
+
+    create_user #source ./common.sh
+
+    download_and_extract
+
+    config_svc
+
+    echo -n "Generation $COMPONENT Artifact: "
+    cd /app 
+    mvn clean package &>> $LOG
+    mvn target/$COMPONENT-1.0.jar ${COMPONENT}.jar &>> $LOG
+    stat $?
+
+    install_mysql
+
+    if [ $COMPONENT == "shipping" ]; then    
+        echo -n "Loading schema: "
+        mysql -h shipping.robo60.online -uroot -pRoboShop@1 < /app/db/schema.sql &>> $LOG
+        stat $?
+        echo -n "Injection the appUser: "
+        mysql -h shipping.robo60.online -uroot -pRoboShop@1 < /app/db/app-user.sql &>> $LOG
+        stat $?
+        echo -n "Loading the appUser data: "
+        mysql -h shipping.robo60.online -uroot -pRoboShop@1 < /app/db//master-data.sql &>> $LOG
+        stat $?
+    fi  
+
+        config_svc
+
+        echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+    
 }
 
 
 
 
-
-
-
-
-
+        # echo -n "Copying JAR file: "
+        # mv target/shipping-1.0.jar shipping.jar 
+        # stat $?
 
 
 #     i d $APPUSER &>/dev/null || useradd $APPUSER
