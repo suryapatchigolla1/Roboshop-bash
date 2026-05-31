@@ -19,12 +19,17 @@ systemctl status rabbitmq-server -l &>> $LOG
 stat $?
 
 echo -n "Configuring $COMPONENT user: "
-rabbitmqctl add_user ${APPUSER} roboshop123
+rabbitmqctl list_users | grep -w ${APPUSER} &>> $LOG
+if [ $? -ne 0 ]; then
+	rabbitmqctl add_user ${APPUSER} roboshop123 &>> $LOG
+else
+	echo -n "user ${APPUSER} already exists: " &>> $LOG
+fi
 stat $?
 
 echo -n "Configuring $APPUSER permissions: "
-rabbitmqctl set_user_tags ${APPUSER} administrator
-rabbitmqctl set_permissions -p / ${APPUSER} ".*" ".*" ".*"
+rabbitmqctl set_user_tags ${APPUSER} administrator &>> $LOG
+rabbitmqctl set_permissions -p / ${APPUSER} ".*" ".*" ".*" &>> $LOG
 stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
