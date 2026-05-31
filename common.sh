@@ -124,8 +124,6 @@ maven() {
 
     download_and_extract
 
-    config_svc
-
     echo -n "Generation $COMPONENT Artifact: "
     cd /app 
     mvn clean package &>> $LOG
@@ -146,9 +144,9 @@ maven() {
         stat $?
     fi  
 
-        config_svc
+    config_svc
 
-        echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
+    echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
     
 }
 
