@@ -1,4 +1,4 @@
-#!/nbin/bash
+#!/bin/bash
 
 
 COMPONENT=$1
