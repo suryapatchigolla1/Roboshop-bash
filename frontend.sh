@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Configuration Management for $COMPONENT $ENVIRONMENT in progress"
+echo "Configuration Management for $COMPONENT $environment in progress"
 
 ID=$(id -u)
 COMPONENT="frontend"
