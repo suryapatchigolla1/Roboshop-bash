@@ -1,12 +1,13 @@
 #!/bin/bash
 
-echo "Configuration Management for $component $environment in progress"
+
 
 ID=$(id -u)
 COMPONENT="frontend"
 LOG="/tmp/${COMPONENT}.log"
 
 
+echo "Configuration Management for $COMPONENT $environment in progress"
 if [ $ID -ne 0 ]; then
     echo "This script must be run as root"
     echo "Use: sudo $0"
@@ -64,4 +65,4 @@ stat $?
 
 echo -e "\n \t ___ Configuration Management for $COMPONENT in completed! ___"
 
-### your domain is robo60.online
+### your domain is robo60.online https://github.com/suryapatchigolla1/Roboshop-bash.git
