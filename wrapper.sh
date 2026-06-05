@@ -8,7 +8,7 @@ if [ -z "$1" ] &&  [ -z "$2" ]; then
     exit 3
 fi
 
-bash ${1}.sh $environment
+bash ${1}.sh $ENVIRONMENT
 
 
 
