@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/nbin/bash
 
 
 COMPONENT=$1
 ENVIRONMENT=$2
-if [ -z "$1" ] || [ -z "$2" ]; then
+if [ -z "$1" ] &&  [ -z "$2" ]; then
     echo -e "Expected usage : sudo bash $0 componentName environment"
 fi
 
